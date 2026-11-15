@@ -1,2 +1,13 @@
 #!/usr/bin/env bash
-ssh-keygen -t rsa -b 4096 -f school -N "betty"
+set -eu
+
+key="school"
+if [ -e "$key" ] || [ -e "$key.pub" ]; then
+  echo "Refusing to overwrite existing school key files." >&2
+  exit 1
+fi
+
+ssh-keygen -t rsa -b 4096 -f "$key" -N "betty"
+install -d -m 700 "$HOME/.ssh"
+install -m 600 "$key" "$HOME/.ssh/school"
+install -m 644 "$key.pub" "$HOME/.ssh/school.pub"
