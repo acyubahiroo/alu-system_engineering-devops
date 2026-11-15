@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -eu
+
+if [ "$#" -ne 1 ]; then
+  echo "Usage: $0 SERVER_IP" >&2
+  exit 2
+fi
+
+# Connect to the assignment server as ubuntu using the school private key.
+ssh -i "$HOME/.ssh/school" "ubuntu@$1"
+

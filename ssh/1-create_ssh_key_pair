@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -eu
+
+key="$HOME/.ssh/school"
+mkdir -p "$HOME/.ssh"
+chmod 700 "$HOME/.ssh"
+
+if [ -e "$key" ] || [ -e "$key.pub" ]; then
+  echo "Refusing to overwrite an existing key: $key" >&2
+  exit 1
+fi
+
+ssh-keygen -t rsa -b 4096 -f "$key" -N "betty"
+
