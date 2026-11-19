@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
-# Install Nginx and serve Hello Holberton School on port 80.
-set -e
-
-sudo apt-get update
-sudo DEBIAN_FRONTEND=noninteractive apt-get install -y nginx
-printf '%s\n' 'Hello Holberton School' | sudo tee /var/www/html/index.html >/dev/null
-sudo service nginx start
+# Installs Nginx and configures it to serve a page containing Holberton School on port 80
+sudo apt-get update -y
+sudo apt-get install -y nginx
+echo "Holberton School for the win!" | sudo tee /var/www/html/index.html > /dev/null
+echo "Holberton School for the win!" | sudo tee /var/www/html/index.nginx-debian.html > /dev/null
+sudo service nginx restart
