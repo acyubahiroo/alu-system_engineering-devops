@@ -1,13 +1,9 @@
 #!/usr/bin/env bash
-# Installs nginx and configures a 301 redirect from /redirect_me
-
+# Installs Nginx and configures /redirect_me to redirect with a 301 Moved Permanently
 sudo apt-get update -y
-sudo apt-get install nginx -y
+sudo apt-get install -y nginx
 echo "Holberton School for the win!" | sudo tee /var/www/html/index.html > /dev/null
-
-if ! grep -q "redirect_me" /etc/nginx/sites-available/default
-then
-  sudo sed -i "s|server_name _;|server_name _;\n\n\tlocation /redirect_me {\n\t\treturn 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\n\t}|" /etc/nginx/sites-available/default
+if ! grep -q "redirect_me" /etc/nginx/sites-available/default; then
+    sudo sed -i '/server_name _;/a location /redirect_me { return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4; }' /etc/nginx/sites-available/default
 fi
-
 sudo service nginx restart
